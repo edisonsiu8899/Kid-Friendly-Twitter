@@ -113,7 +113,8 @@ def main():
                 for j in split_text:
                     message += filter(j)
                     message += " "
-                print(message)
+                print("Tweet Posted: ", message)
+                api.update_status(message)
             if(action == 4):
                 print("Have a good day!")
                 break
