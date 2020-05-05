@@ -1,10 +1,9 @@
 import tweepy
 
-consumer_key = 
-consumer_secret = 
-access_token = 
-access_token_secret = 
-
+consumer_key =
+consumer_secret =
+access_token =
+access_token_secret =
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -24,11 +23,13 @@ def filter(word):
     for i in bad_word:
         if(i in word.lower()):
             word.lower().replace(i, bad_word[i])
-            print(word.lower().replace(i, bad_word[i]), end=" ")
+            #print(word.lower().replace(i, bad_word[i]), end=" ")
+            return(word.lower().replace(i, bad_word[i]))
             wordcheck += 1
             break
     if(wordcheck == 0):
-        print(word, end=" ")
+        #print(word, end=" ")
+        return(word)
 
 def main():
     while(True):
@@ -49,10 +50,9 @@ def main():
                                 print(str(i) + ") ", end="")
                                 split_text = status.text.split()
                                 for j in split_text:
-                                    filter(j)
+                                    print(filter(j), end =" ")
                                 print()
                                 i+=1
-                                print()
                             #break
                         if(choice == 2):
                             friends = api.friends(screen_name=handle, count=20)
@@ -63,7 +63,7 @@ def main():
                                 print(str(i) + ") ", end="")
                                 split_text = friend.name.split()
                                 for j in split_text:
-                                    filter(j)
+                                    print(filter(j), end = " ")
                                 print()
                                 i += 1
                         break
@@ -86,7 +86,7 @@ def main():
                                 #split_text = result.text.encode('utf-8').split()
                                 split_text = result.text.split()
                                 for j in split_text:
-                                    filter(j)
+                                    print(filter(j), end = " ")
                                 print()
                                 i += 1
                         else:
@@ -98,7 +98,7 @@ def main():
                                 # split_text = result.text.encode('utf-8').split()
                                 split_text = result.text.split()
                                 for j in split_text:
-                                    filter(j)
+                                    print(filter(j), end = " ")
                                 print()
                                 i += 1
                         break
@@ -108,12 +108,12 @@ def main():
 
             if(action == 3):
                 tweet = input("What would you like your update to say?: ")
-                # api.PostUpdate("Tweeting through Python!")
-                split_text = tweet.text.split()
+                split_text = tweet.split()
+                message = ""
                 for j in split_text:
-                    filter(j)
-                api.update_status(tweet)
-                #api.
+                    message += filter(j)
+                    message += " "
+                print(message)
             if(action == 4):
                 print("Have a good day!")
                 break
